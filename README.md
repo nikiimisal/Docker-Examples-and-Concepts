@@ -2,13 +2,38 @@
 
 ### Ex. 1 .  Deploying a Static Portfolio with Docker and Nginx
 
+
+```
+sudo -i
+docker ps
+docker ps -a
+docker run -d -p 80:80 --name mynginx nginx
+docker ps
+exit
+
+
+```
    <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Example-s/blob/main/img/Screenshot%202026-01-03%20132346.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
+```
+scp -i my-cal1-key.pem -r iportfolio-1.0.0/ ec2-user@13.57.11.160:/home/ec2-user/
+```
+
    <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Example-s/blob/main/img/Screenshot%202026-01-03%20132045.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
+
+```
+sudo -i
+cd /home/ec2-user/
+mv iPortfolio-1.0.0/ myportfolio
+ls
+docker ps
+ls
+docker cp myportfolio/ mynginx:/usr/share/nginx/html/
+```
 
    <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Example-s/blob/main/img/Screenshot%202026-01-03%20132221.png?raw=true" width="500" alt="Initialize Repository Screenshot">
@@ -33,6 +58,16 @@
 
 ### This is the basic concept of how to pull code from Docker Hub. 
 
+
+```
+sudo -i
+cd /home/ec2-user/
+docker pull httpd:trixie
+docker images
+docker run -d -P --name newhttpd httpd
+docker ps
+
+```
 
 | **Docker-Hub Repo**    | **Terminal**          | **Terminal**          |
 |--------------------------------|------------------------------------|------------------------------------|
@@ -65,6 +100,7 @@
 
 ```
 docker tag 2fa nikiimisal/test_repo               # to name the img
+docker login                                      # to login (init) docker hub
 ```
 - Now that you have changed the name, the next step is to authenticate and log in to Docker Hub.
   
@@ -72,7 +108,9 @@ docker tag 2fa nikiimisal/test_repo               # to name the img
   <img src="https://github.com/nikiimisal/Docker-Example-s/blob/main/img/Screenshot%202026-01-03%20164604.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
-
+```
+docker push nikiimisal/test_repo             # to push the code
+```
 
 <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Example-s/blob/main/img/Screenshot%202026-01-03%20164618.png?raw=true" width="500" alt="Initialize Repository Screenshot">
@@ -85,7 +123,9 @@ docker tag 2fa nikiimisal/test_repo               # to name the img
 
 
 
-
+---
+---
+---
 
 
 
