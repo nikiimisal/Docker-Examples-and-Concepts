@@ -132,7 +132,7 @@ A Docker volume is a mechanism used by Docker to persist and share data generate
 By default, when a container is deleted, all data inside it is lost. Volumes solve this problem by storing data outside the container’s writable layer.
 
 
-#### Why Docker Volumes are needed
+### Why Docker Volumes are needed
 
 - 📦 Data persistence – data remains even if the container stops or is removed<br>
 - 🔄 Container independence – volumes live beyond the container lifecycle<br>
@@ -142,7 +142,7 @@ By default, when a container is deleted, all data inside it is lost. Volumes sol
 
 ---
 
-#### How Docker Volumes Work ?
+### How Docker Volumes Work ?
 
 <p align="center">
   <img src="" width="500" alt="Initialize Repository Screenshot">
@@ -248,30 +248,59 @@ Key Points:
 
 ---
 
+## Example's
+
+### ex 1. Bind Volume
+
+> We have already completed the Docker setup. You can refer to the previous information directory.
+
+1. Login to the EC2 instance (host/server) using the terminal.<br>
+2. If any old containers are running, stop and remove them.<br>
+3. Next, move to the host machine’s directory and create a new folder. This directory will be used to store website files on the host.<br>
+
+  > You can also go inside the Docker container and create a content in there as well.
+    `docker exec -it 123 /bin/bash`<br>
+    `cd /usr/share/nginx/html`<br>
+    `apt update`<br>
+    `apt install nano`<br>
+    `nano login.html`<br>
+
+
+```
+mkdir /home/ec2-user/
+```
+
+> The `-v` option is used to mount a host directory into the container so the container can access host files.
+ 
+ Run the Nginx container with volume mapping:
+
+```
+docker run -d -p 80:80 --name mynginx -v /home/ec2-user/nikii/:/usr/share/nginx/html/ nginx
+```
+<p align="center">
+  <img src="" width="500" alt="Initialize Repository Screenshot">
+</p>
+
+The container is now running and ready.
+
+4. Access the application using the EC2 `< public IP >` in the browser.<br>
+   You may see an error (403 or blank page) because no files are present in the mounted directory.<br>
+   This example shows how Docker volumes work and how host directories are shared with containers.
+
+<p align="center">
+  <img src="" width="500" alt="Initialize Repository Screenshot">
+</p>
+
+- Now, we will add some code or content to the host directory and run it to test the website. 
+- You can also check inside the container; the same code will be available there as well.
+
+
+| **Terminal**    | **Output**          | **Output**          |
+|--------------------------------|------------------------------------|------------------------------------|
+| ![VS]() | ![AWS]() | ![AWS]) |
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-| Type            | Description                       | Managed by Docker |
-| --------------- | --------------------------------- | ----------------- |
-| **Volume**      | Best option, persistent, portable | ✅ Yes             |
-| **Bind Mount**  | Maps a host path directly         | ❌ No              |
-| **tmpfs Mount** | Temporary, stored in memory       | ❌ No              |
 
 
 
