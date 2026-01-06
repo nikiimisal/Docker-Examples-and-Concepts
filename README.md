@@ -188,7 +188,7 @@ By default, when a container is deleted, all data inside it is lost. Volumes sol
 ### How Docker Volumes Work ?
 
 <p align="center">
-  <img src="" width="500" alt="Initialize Repository Screenshot">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Docker%20volume.jpg?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
 
