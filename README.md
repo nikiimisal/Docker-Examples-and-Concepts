@@ -157,6 +157,8 @@ By default, when a container is deleted, all data inside it is lost. Volumes sol
 
 ## Types of Docker Storage
 
+> The functionality of all three volumes is similar; the only difference is the use case—when and where you need to use them.
+
 ### 1️⃣ Temporary Docker Volumes
 
 Temporary volumes store data only for the lifetime of the container.
@@ -278,7 +280,7 @@ mkdir /home/ec2-user/
 docker run -d -p 80:80 --name mynginx -v /home/ec2-user/nikii/:/usr/share/nginx/html/ nginx
 ```
 <p align="center">
-  <img src="" width="500" alt="Initialize Repository Screenshot">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20091918.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
 The container is now running and ready.
@@ -288,7 +290,7 @@ The container is now running and ready.
    This example shows how Docker volumes work and how host directories are shared with containers.
 
 <p align="center">
-  <img src="" width="500" alt="Initialize Repository Screenshot">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20091331.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
 - Now, we will add some code or content to the host directory and run it to test the website. 
@@ -297,24 +299,116 @@ The container is now running and ready.
 
 | **Terminal**    | **Output**          | **Output**          |
 |--------------------------------|------------------------------------|------------------------------------|
-| ![VS]() | ![AWS]() | ![AWS]) |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+| ![VS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20091918.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20091530.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20091736.png?raw=true) |
 
 
 ---
+
+### ex 2. Named Volume
+
+> We have already completed the Docker setup. You can refer to the previous information directory.
+
+
+A Named Volume is a Docker-managed persistent storage.<br>
+Unlike bind mounts, we do not specify a host path. Docker automatically creates and manages the storage location.
+
+1. Login to the EC2 instance (host/server) using the terminal.<br>
+2. If any old containers are running, stop and remove them.<br>
+3. Create a Docker named volume. Docker will manage the storage location automatically.<br>
+
+```
+docker volume create vol1
+```
+
+>The `-v` option is used to mount a Docker-managed named volume into the container.
+No host path is required.
+
+Run the Nginx container with named volume mapping:
+
+```
+docker run -d -p 80:80 --name mynginx -v vol1:/usr/share/nginx/html nginx
+```
+The container is now running and ready.
+
+4. Access the application using the EC2 `< public IP >` in the browser.<br>
+   You may see the default Nginx page.<br>
+   This example shows how Docker named volumes persist data outside the container.
+
+
+- Now, we will modify the content stored inside the named volume.
+- You can also check inside the container; the same content will be available there.
+
+
+```
+cd /var/lib/docker/volumes/vol1/_data
+ls
+nano index.html
+```
+
+> You can also edit files from inside the container if required.
+
+```
+docker exec -it mynginx /bin/bash
+cd /usr/share/nginx/html
+ls
+```
+✔ Data is stored in a Docker-managed location<br>
+✔ Data remains even if the container is removed
+
+
+Key Points (Named Volume)
+
+- No host path required<br>
+- Fully managed by Docker<br>
+- Data persists after container deletion<br>
+- Recommended for production workloads
+
+#### One-Line Difference (Bind vs Named)
+
+> Bind Volume uses a host path, while Named Volume is fully managed by Docker and is preferred for production use.
+
+```
+Bind Volume  → Host path is manually specified
+Named Volume → Docker manages the storage location
+```
+
+<p align="center">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20095552.png?raw=true" width="500" alt="Initialize Repository Screenshot">
+</p>
+
+ <p align="center">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20094343.png?raw=true" width="500" alt="Initialize Repository Screenshot">
+</p>
+---
+
+### ex 3. Anonymous Volume
+
+An Anonymous Volume is a Docker-managed volume without a user-defined name.<br>
+Docker automatically creates it and assigns a random ID.
+
+Run Nginx container with Anonymous Volume
+
+```
+docker run -d -p 80:80 -v /usr/share/nginx/html nginx
+```
+Explanation:
+
+- No volume name is provided<br>
+- Docker automatically creates an anonymous volume<br>
+- Volume is mounted to `/usr/share/nginx/html`
+
+  Key Points (Anonymous Volume)
+
+- No name is provided by the user<br>
+- Docker assigns a random volume ID<br>
+- Managed by Docker<br>
+- Hard to track and manage<br>
+- Not recommended for production
+
+  <p align="center">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/aaaaa/Screenshot%202026-01-06%20095725.png?raw=true" width="500" alt="Initialize Repository Screenshot">
+</p>
+
 ---
 
 
