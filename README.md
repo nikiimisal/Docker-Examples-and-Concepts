@@ -202,7 +202,7 @@ By default, when a container is deleted, all data inside it is lost. Volumes sol
 
 > The functionality of all three volumes is similar; the only difference is the use case—when and where you need to use them.
 
-<a id="example-41"></a>
+<a id="example-4"></a>
 
 ### 1️⃣ Temporary Docker Volumes
 
