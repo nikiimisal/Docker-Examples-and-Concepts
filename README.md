@@ -518,14 +518,26 @@ Just like:
 
 
 ```
-FROM alpine
-RUN apk update && apk add nginx
-RUN mkdir -p /run/nginx/
-WORKDIR /usr/share/nginx/html/
-RUN echo "<h1>This is my lightweight nginx</h1>" > index.html
+FROM ubuntu
+RUN apt update -y
+RUN apt install nginx -y
+WORKDIR /var/www/html/
+RUN touch index.html
+RUN echo "<h1>This is my first Dockerfile</h1>" > index.html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
+
+Running Command of this file (Img Building Process)
+```
+docker build -t nginx-ubuntu .   # . for present path ( dir)
+```
+After creating the Dockerfile, to check which image was used for the container and how much size it consumes, we use this command.
+```
+docker history nginx-ubuntu
+```
+
+
 
 🔹 This Dockerfile:
 
@@ -573,16 +585,50 @@ Dockerfile → docker build → Docker Image → docker run → Container
 ---
 
 
+### 🔹 Scenario-Based Example
+
+#### Scenario:
+
+We have created a Dockerfile that shows this output in the browser:
+```
+this is my first docker file
+```
+
+Now, we want to change this content.
+
+---
+
+### 🔹 Two Possible Ways to Change the Content
+
+
+❌ Way 1: Change content inside the container<br>
+We can go inside the running container and modify the file manually.
+
+But this is not recommended because:
+
+- The change is temporary
+- If the container is deleted or recreated, the content is lost
+- This breaks the concept of immutability
+- It will also cause problems during rollback.
+- If changes are made inside a container, it is not practical to go into 100 containers and update each one manually.
+
+---
+
+✅ Way 2: Change content from the Dockerfile (Recommended)<br>
+Correct Approach:<br>
+We should change the content inside the Dockerfile and rebuild the image.
+
+Why this is correct:
+
+-Dockerfile is the source of truth
+- Image will be reproducible
+- Changes are permanent
+- Follows Docker best practices
 
 
 
-
-
-
-
-
-
-
+---
+---
 
 
 
