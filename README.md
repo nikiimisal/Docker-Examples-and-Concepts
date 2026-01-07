@@ -470,20 +470,107 @@ Explanation:
 
 ---
 
+#  Dockerfile 🐳
+
+A Dockerfile is a plain text configuration file that contains a set of instructions used to build a Docker image.<br>
+It tells Docker how to create an image step by step, starting from a base environment and adding everything an application needs to run.
+
+#### Core Idea
+
+> Dockerfile = Blueprint of a Docker Image
+
+Just like:
+
+- A recipe tells how to cook a dish 🍳<br>
+- A Dockerfile tells Docker how to build an image 🐳
+
+### In simple words
+
+👉 Dockerfile = recipe<br>
+👉 Docker image = cooked food<br>
+👉 Docker container = serving the food
+
+---
+
+### Why do we need a Dockerfile?
+
+- To automate image creation
+- To make applications portable
+- To ensure same environment everywhere
+- To avoid manual setup
+
+---
+
+### Common instructions in a Dockerfile
+
+| Instruction | Purpose                   |
+| ----------- | ------------------------- |
+| `FROM`      | Base image (OS / runtime) |
+| `WORKDIR`   | Set working directory     |
+| `COPY`      | Copy files into image     |
+| `RUN`       | Execute commands          |
+| `EXPOSE`    | Open a port               |
+| `CMD`       | Start application         |
+
+---
+
+### Simple Dockerfile example
 
 
+```
+FROM alpine
+RUN apk update && apk add nginx
+RUN mkdir -p /run/nginx/
+WORKDIR /usr/share/nginx/html/
+RUN echo "<h1>This is my lightweight nginx</h1>" > index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+🔹 This Dockerfile:
+
+- Uses Alpine Linux as a lightweight base image<br>
+- Installs nginx using Alpine package manager `(apk)`<br>
+- Creates required nginx runtime directory<br>
+- Sets working directory to nginx website root<br>
+- Creates a simple HTML file with custom content<br>
+- Exposes port 80 for web access<br>
+- Runs nginx in foreground to keep container alive
+
+---
+
+### Dockerfile workflow
+
+```
+Dockerfile → docker build → Docker Image → docker run → Container
+```
 
 
+---
+
+### Difference between Dockerfile, Docker Image, and Docker Container
+
+| Aspect             | Dockerfile                                            | Docker Image                                   | Docker Container                     |
+| ------------------ | ----------------------------------------------------- | ---------------------------------------------- | ------------------------------------ |
+| Definition         | A text file containing instructions to build an image | A read-only template created from a Dockerfile | A running instance of a Docker image |
+| Nature             | Configuration / Blueprint                             | Static                                         | Dynamic (running)                    |
+| Purpose            | Tells Docker **how to build** an image                | Provides everything needed to run an app       | Actually **runs** the application    |
+| State              | Not executable                                        | Not running                                    | Running or stopped                   |
+| Mutability         | Editable text file                                    | Immutable (cannot be changed)                  | Mutable during runtime               |
+| Created By         | Written by developer                                  | Built using `docker build`                     | Created using `docker run`           |
+| Used For           | Image creation                                        | Container creation                             | Application execution                |
+| Dependency         | Independent                                           | Depends on Dockerfile                          | Depends on Image                     |
+| Storage            | Stored as `.Dockerfile` / `Dockerfile`                | Stored in Docker local repo / registry         | Stored in Docker runtime memory      |
+| Lifecycle          | Until modified by developer                           | Exists until deleted                           | Starts, stops, restarts, removed     |
+| Versioning         | Versioned via Git                                     | Versioned via tags                             | Not versioned                        |
+| Example            | Instructions like `FROM`, `RUN`, `CMD`                | `nginx:latest`                                 | Running Nginx server                 |
+| Real-world Analogy | Recipe 📄                                             | Dish ingredients + prep 🍱                     | Served dish 🍽️                      |
 
 
-
-
-
-
-
-
-
-
+- Dockerfile → How to build<br>
+- Docker Image → What to run<br>
+- Docker Container → Running application
+---
 
 
 
