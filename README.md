@@ -1059,12 +1059,20 @@ This is done purely for study and learning purposes.<br>
 Do not use this approach in real-world projects or production environments, as storing credentials like this is a bad security practice.
 
 
+```
+FROM mysql
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=myntra
+EXPOSE 3306
+CMD ["mysqld"]
+```
+
+| **Terminal**    | ****          | 
+|--------------------------------|------------------------------------|
+| ![VS]() | ![AWS]() |
 
 
-
-
-
-
+---
 
 
 
