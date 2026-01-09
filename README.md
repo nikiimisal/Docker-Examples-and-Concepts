@@ -516,62 +516,19 @@ Just like:
 |  `ENTRYPOINT` | contains all the commands  |
 
 
- ENTRYPOINT vs CMD 
-│                                                                           │
-│ ENTRYPOINT                         │ CMD                    │
-│ ──────────────────────────────────────── │ ───────────────────────────── │
-│ ▸ Used to define the MAIN command         │ ▸ Used to define default       │
-│   (executable) of the container           │   arguments or default command │
-│                                                                           │
-│ ▸ Commands are written in ENTRYPOINT      │ ▸ Arguments are usually        │
-│   (WHAT to run)                           │   written in CMD (HOW to run)  │
-│                                                                           │
-│ ▸ ENTRYPOINT cannot be overridden easily  │ ▸ CMD can be overridden while │
-│   using docker run                        │   running the container        │
-│                                                                           │
-│ ▸ ENTRYPOINT runs first and always runs   │ ▸ CMD runs after ENTRYPOINT   │
-│   when container starts                   │   (if ENTRYPOINT exists)      │
-│                                                                           │
-│ ▸ Only ONE ENTRYPOINT should be defined   │ ▸ Multiple CMD can exist but  │
-│   in a Dockerfile                         │   only the LAST CMD works     │
-│                                                                           │
-│ ▸ ENTRYPOINT is NOT compulsory            │ ▸ CMD is IMPORTANT             │
-│   (optional)                              │   (without CMD container may  │
-│                                           │    stop immediately)           │
-│                                                                           │
-│ ▸ ENTRYPOINT gives fixed behavior         │ ▸ CMD gives flexible behavior │
-│                                                                           │
-│ Example:                                  │ Example:                       │
-│ ENTRYPOINT ["nginx"]                      │ CMD ["-g", "daemon off;"]     │
-│                                                                           │
-│ docker run myimage                        │ docker run myimage /bin/sh    │
-│ → nginx -g daemon off                    │ → CMD overridden               │
-│                                                                           │
+| ENTRYPOINT vs CMD |  | COPY vs ADD |  |
+|------------------|--|------------|--|
+| **ENTRYPOINT**   | **CMD** | **COPY** | **ADD** |
+| Defines the main command (executable) of the container | Default arguments or default command | Copy file from host to container | Copy file from host or internet to container |
+| Commands are written in ENTRYPOINT (WHAT to run) | Arguments usually written in CMD (HOW to run) | Simpler, more predictable | Can do more complex tasks (e.g., unpack archives) |
+| Cannot be overridden easily | CMD can be overridden while running the container | Does NOT unpack archives automatically | Can unpack local .tar, .tar.gz, .tar.xz automatically |
+| Runs first and always executes when container starts | Runs after ENTRYPOINT (if ENTRYPOINT exists) | Cannot fetch files from URLs | Can fetch remote files from internet |
+| Only ONE ENTRYPOINT should exist | Multiple CMD can exist but only the LAST CMD works | Preferred for most use-cases | Use only when you need archive extraction or remote download |
+| ENTRYPOINT is NOT compulsory (optional) | CMD is IMPORTANT (without CMD container may stop immediately) | Simpler syntax, faster build | Slightly slower due to extra features |
+| ENTRYPOINT gives fixed behavior | CMD gives flexible behavior | Example: `COPY ./app /usr/src/app` | Example: `ADD app.tar.gz /usr/src/app` |
+| Example: `ENTRYPOINT ["nginx"]` | Example: `CMD ["-g","daemon off;"]` | Example: `COPY ./index.html /usr/share/nginx/html/` | Example: `ADD https://example.com/file.txt /usr/src/file.txt` |
+| `docker run myimage` → nginx -g daemon off | `docker run myimage /bin/sh` → CMD overridden | - | - |
 
-
-
-
-COPY vs ADD 
-│                                                                       │
-│ COPY                     │ ADD                        │
-│ ─────────────────────────────── │ ──────────────────────────────── │
-│ ▸ Copy file from host to container    │ ▸ Copy file from internet to container     │
-│          │   │
-│                      │                                   │
-│                                                                       │
-│ ▸ Simpler, more predictable      │ ▸ Can do more complex tasks:     │
-│                                                                       │
-│ ▸ Does NOT unpack archives       │ ▸ Can unpack local .tar, .tar.gz │
-│   automatically                  │   or .tar.xz files automatically │
-│                                                                       │
-│ ▸ Cannot fetch files from URLs   │ ▸ Can fetch remote files from    │
-│                                   │   internet and add to image       │
-│                                                                       │
-│ ▸ Preferred for most use-cases   │ ▸ Use only when you need archive  │
-│                                   │   extraction or remote download   │
-│                                                                       │
-│ ▸ Simpler syntax, faster build   │ ▸ Slightly slower due to extra    │
-│                                   │   features                        │
 
 
 ---
