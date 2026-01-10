@@ -1105,7 +1105,12 @@ CMD ["mysqld"]
 
 | **Terminal**    | ****          | 
 |--------------------------------|------------------------------------|
-| ![VS]() | ![AWS]() |
+| ![VS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-11%20004527.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-11%20004545.png?raw=true) |
+
+
+| ****    | ****          | 
+|--------------------------------|------------------------------------|
+| ![VS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-11%20004608.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-11%20004629.png?raw=true) |
 
 
 ---
