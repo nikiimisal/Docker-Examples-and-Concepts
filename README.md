@@ -1162,9 +1162,18 @@ With Docker network:
 
 ### 1️⃣ Bridge Network (Default)
 
+### When should you use a Docker Bridge Network?
+
+Use the Docker bridge network when you want containers on the same host to communicate with each other securely using container names or IPs.
+It is mainly used for single-host setups, development, and testing environments.
+By default, if no network is specified, Docker automatically connects containers to the bridge network.
+It is best for local development, testing, and small applications, where containers don’t need direct exposure to the outside network.
+
+Key Points :
 
 - Communicate between host and container
 - Establishing communication between containers C1 & C2 ,C3
+- Create Multiple connections
 - Default network created by Docker
 - Containers can talk inside the same bridge
 - Used for single-host applications
@@ -1180,36 +1189,105 @@ docker network create --subnet 11.0.0.0/16 --driver bridge net-1
 </p>
 
 
+---
+
+### 2️⃣ Host Network
+
+
+### When should you use a Docker Host Network?
+
+When you want to create your container outside the Docker network, meaning it should use the host’s network directly, you should use the host network.
+In this case, the container does not get its own IP, and it shares the host machine’s IP and ports.
+If the container uses the host network, hitting the EC2 public IP in the browser will show the container’s content.
+For the Testing purpose you can use the `host`...( staging -> testing -> production )
+
+
+
+Use the Docker host network when you need high performance and low latency, because the container shares the host’s network stack directly.
+It is useful when you want no port mapping and the container should behave like a native application running on the host.
+Mostly used for system-level services, monitoring tools, or performance-critical applications.
+
+Key Points :
+
+- Container uses host’s network directly
+- No isolation
+- Faster performance
+- You create only one host network
+
+⚠️ Not recommended for beginners
+
+Example:
+
+```
+docker run -d --network host --name c1 nginx
+```
+
+| **Terminal**    | ****          | 
+|--------------------------------|------------------------------------|
+| ![VS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200308.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200347.png?raw=true) |
+
+
+ <p align="center">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200013.png?raw=true" width="500" alt="Initialize Repository Screenshot">
+</p>
+
+---
+
+### 3️⃣ None Network
+
+If you don’t want any IP assigned to your container, then use the none network.
+It completely disables networking for the container.
 
 
 
 
+Key Points :
+
+- No networking at all
+- Fully isolated container
+- Used for security testing
+- Or you can store the data
+- You can create multiple container
+
+Example:
+
+```
+docker run -d --network none --name c2 nginx
+```
 
 
+| **Terminal**    | ****          | 
+|--------------------------------|------------------------------------|
+| ![VS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200509.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200532.png?raw=true) |
+
+
+Using this command, you can enter the container, even though it is an isolated (none network) container with no external access.
+It is mainly used for secure tasks, data storage, or security-related work.
+
+ <p align="center">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200718.png?raw=true" width="500" alt="Initialize Repository Screenshot">
+</p>
 
 
 
 ---
 
 
+### 4️⃣ Overlay Network
 
 
+Use the Docker Overlay Network when you want containers running on multiple hosts (nodes) to communicate with each other.
+It is mainly used in Docker Swarm for distributed and scalable applications.
 
 
+- Used in Docker Swarm
+- Containers communicate across multiple hosts
+- Ideal for microservices
 
 
+---
 
-
-
-
-
-
-
-
-
-
-
-
+---
 
 
 
