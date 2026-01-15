@@ -1175,7 +1175,9 @@ Example:
 docker network create --subnet 11.0.0.0/16 --driver bridge net-1
 ```
 
-
+ <p align="center">
+  <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20113052.png?raw=true" width="500" alt="Initialize Repository Screenshot">
+</p>
 
 
 
@@ -1283,12 +1285,12 @@ Step 1: Create Another Network
 ----------------------------------------------------------------
 Step 2: Run Container in Different Network
 
-docker run -d --name c3 --network net-2 nginx
+docker run -d --name c6 --network net-2 nginx
 
 ----------------------------------------------------------------
 Step 3: Try to Ping from c1
 
-docker exec -it c3 ping
+docker exec -it c5 ping 11.0.0.2
 --------------------------------------------------------------
 ```
 
@@ -1309,12 +1311,12 @@ Concept
 ```
 Command to Connect c3 to mynet
 
-docker network connect mynet c3
+docker network connect bridge c6
 
 ---------------------------------------------------
 Ping Again from c1
 
-docker exec -it c3 ping
+docker exec -it c5 ping 172.17.0.3
 ---------------------------------------------
 
 ```
@@ -1323,8 +1325,13 @@ docker exec -it c3 ping
 
 - Ping works
 - Container c3 is now connected to both networks
+ 
+---
+---
 
-Create a container without specifying any network type, Docker will automatically connect it to the default bridge network.
+## here you see how Case 3 works :
+
+- Create a container without specifying any network type, Docker will automatically connect it to the default bridge network.
 
 
  <p align="center">
