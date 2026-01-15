@@ -1160,6 +1160,9 @@ With Docker network:
 
 ## 🔹 Types of Docker Networks
 
+> Right now, we mainly need only three network types.<br>
+If you want to explore more network types, then for reference 👉 [click here.](https://docs.docker.com/engine/network/drivers/)
+
 ### 1️⃣ Bridge Network (Default)
 
 ### When should you use a Docker Bridge Network?
@@ -1471,6 +1474,96 @@ Here you go — the output clearly shows that communication between the containe
 </p>
 
 
+---
+---
+
+# Docker Compose
+
+###  🐳 What is Docker Compose?
+
+Docker Compose is a tool used to run and manage multiple Docker containers at the same time using one single YAML file.
+
+
+Simple Meaning (Conclusion First)
+
+>Docker Compose helps you start, stop, and manage multi-container applications using one command.
+
+---
+
+### Why Docker Compose Is Used
+
+- Application has multiple services
+   - Nginx
+   - Node / Python
+   - Database
+- Running many `docker run` commands is difficult
+- Docker Compose makes it easy and clean
+
+---
+
+### How Docker Compose Works
+
+
+- You write a file called `docker-compose.yml`
+- Define:
+   - Services (containers)
+   - Networks
+   - Volumes
+- Run everything using one command
+
+
+```
+docker compose up
+```
+
+---
+Simple Example
+
+```yml
+version: "3.9"
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+
+  app:
+    image: node
+```
+---
+
+Key Benefits :
+
+- One file to manage everything
+- No need to remember long commands
+- Easy networking (services talk by name)
+- Best for development & learning
+
+---
+
+```
+┌──────────────────────── Docker Compose Commands ────────────────────────┐
+│                                                                         │
+│ docker compose up        # Start all services                            │
+│ docker compose up -d     # Start all services in background              │
+│                                                                         │
+│ docker compose down      # Stop and remove all services                  │
+│                                                                         │
+│ docker compose ps        # Show running containers status                │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+```
+
+---
+
+To understand this concept better, let’s do a mini project.
+To see the project, 👉 [click here.](https://github.com/nikiimisal/Project_Wordpress-deployment-using-_-Docker-Compose)
+
+---
+---
+---
 
 
 
