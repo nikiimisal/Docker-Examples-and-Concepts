@@ -44,11 +44,29 @@
 - [Docker Optimization](#example-10)
 - [Database Container](#example-11)
 - [Docker Network](#example-12)
+      - [Bridge Network (Default)](#example-13)
+      - [Host Network](#example-14)
+      - [None Network](#example-15)
+      - [Overlay Network](#example-16)
+- [Checking Container Communication in Docker](#example-17)
+      - [case 1](#example-18)
+      - [case 2](#example-19)
+      - [case 3](#example-20)
+      - [here you see how Case 3 works](#example-21)
+- [Docker Compose](#example-22)
+      - [Docker Compose Setup ( Installication )](#example-23)
 
 
 
 
 
+
+
+
+
+
+
+  
 
 <a id="example-0"></a>
 <a id="example-1"></a>
