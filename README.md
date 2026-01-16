@@ -1187,9 +1187,9 @@ If you want to explore more network types, then for reference 👉 [click here.]
 
 ### When should you use a Docker Bridge Network?
 
-Use the Docker bridge network when you want containers on the same host to communicate with each other securely using container names or IPs.
-It is mainly used for single-host setups, development, and testing environments.
-By default, if no network is specified, Docker automatically connects containers to the bridge network.
+Use the Docker bridge network when you want containers on the same host to communicate with each other securely using container names or IPs.<br>
+It is mainly used for single-host setups, development, and testing environments.<br>
+By default, if no network is specified, Docker automatically connects containers to the bridge network.<br>
 It is best for local development, testing, and small applications, where containers don’t need direct exposure to the outside network.
 
 Key Points :
@@ -1221,15 +1221,15 @@ docker network create --subnet 11.0.0.0/16 --driver bridge net-1
 
 ### When should you use a Docker Host Network?
 
-When you want to create your container outside the Docker network, meaning it should use the host’s network directly, you should use the host network.
-In this case, the container does not get its own IP, and it shares the host machine’s IP and ports.
-If the container uses the host network, hitting the EC2 public IP in the browser will show the container’s content.
+When you want to create your container outside the Docker network, meaning it should use the host’s network directly, you should use the host network.<br>
+In this case, the container does not get its own IP, and it shares the host machine’s IP and ports.<br>
+If the container uses the host network, hitting the EC2 public IP in the browser will show the container’s content.<br>
 For the Testing purpose you can use the `host`...( staging -> testing -> production )
 
 
 
-Use the Docker host network when you need high performance and low latency, because the container shares the host’s network stack directly.
-It is useful when you want no port mapping and the container should behave like a native application running on the host.
+Use the Docker host network when you need high performance and low latency, because the container shares the host’s network stack directly.<br>
+It is useful when you want no port mapping and the container should behave like a native application running on the host.<br>
 Mostly used for system-level services, monitoring tools, or performance-critical applications.
 
 Key Points :
@@ -1262,7 +1262,7 @@ docker run -d --network host --name c1 nginx
 
 ### 3️⃣ None Network
 
-If you don’t want any IP assigned to your container, then use the none network.
+If you don’t want any IP assigned to your container, then use the none network.<br>
 It completely disables networking for the container.
 
 
@@ -1288,7 +1288,7 @@ docker run -d --network none --name c2 nginx
 | ![VS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200509.png?raw=true) | ![AWS](https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20200532.png?raw=true) |
 
 
-Using this command, you can enter the container, even though it is an isolated (none network) container with no external access.
+Using this command, you can enter the container, even though it is an isolated (none network) container with no external access.<br>
 It is mainly used for secure tasks, data storage, or security-related work.
 
  <p align="center">
@@ -1305,7 +1305,7 @@ It is mainly used for secure tasks, data storage, or security-related work.
 ### 4️⃣ Overlay Network
 
 
-Use the Docker Overlay Network when you want containers running on multiple hosts (nodes) to communicate with each other.
+Use the Docker Overlay Network when you want containers running on multiple hosts (nodes) to communicate with each other.<br>
 It is mainly used in Docker Swarm for distributed and scalable applications.
 
 
@@ -1454,7 +1454,10 @@ docker exec -it c5 ping 172.17.0.3
 </p>
 
 
-Now, create another network, which is a custom Docker network (Bridg Network).
+---
+
+
+-  Now, create another network, which is a custom Docker network (Bridg Network).
 
  <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20113052.png?raw=true" width="500" alt="Initialize Repository Screenshot">
@@ -1464,8 +1467,12 @@ Now, create another network, which is a custom Docker network (Bridg Network).
   <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20112939.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
-Now, we want to test connectivity using ping.
-So, run the ping command and ping c5 from c6 (or c6 from c5).
+
+---
+
+
+Now, we want to test connectivity using ping.<br>
+So, run the ping command and ping c5 from c6 (or c6 from c5).<br>
 In this case, we will ping c5 from c6, so use the following command.
 
 ```
@@ -1481,7 +1488,10 @@ docker inspect c6
 </p>
 
 
-When you try to run the ping command, you may get an error because ping is not installed.
+---
+
+
+When you try to run the ping command, you may get an error because ping is not installed.<br>
 So, first install ping, and then try again.
 
  <p align="center">
@@ -1489,17 +1499,29 @@ So, first install ping, and then try again.
 </p>
 
 
-Now, when you try to use the ping command to check connectivity between two networks, you will get an error because the networks are not connected.
+---
+
+
+Now, when you try to use the ping command to check connectivity between two networks, you will get an error because the networks are not connected.<br>
 So, first connect the networks, and then try again.
+
  <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20114653.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
 
-Run docker inspect again, because now you will see two IP addresses.
+
+---
+
+
+Run docker inspect again, because now you will see two IP addresses.<br>
 Take the new IP address and use it to run the command.
  <p align="center">
   <img src="https://github.com/nikiimisal/Docker-Examples-and-Concepts/blob/main/img/Screenshot%202026-01-15%20115019.png?raw=true" width="500" alt="Initialize Repository Screenshot">
 </p>
+
+
+---
+
 
 Here you go — the output clearly shows that communication between the containers is working.
 
